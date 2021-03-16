@@ -3,16 +3,37 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-double avg (double arg[], long int length) {
-    
-    printf("%li\n", length);
+double avg (double vec[], long int length) {
+
     double sum = 0.0;
 
     for (int i=0; i < length; i++) {
-        sum = sum + arg[i];
+        sum = sum + vec[i];
     }
 
     return sum/length; 
+}
+
+double var (double vec[], long int length, double avg) {
+    
+    double sum = 0.0;
+
+    for (int i=0; i < length; i++) {
+        sum = sum + pow(vec[i] - avg, 2);
+    }
+
+    return sum; 
+}
+
+double conv (double x[], double x_avg, double y[], double y_avg, long int length) {
+    
+    double sum = 0.0;
+
+    for (int i=0; i < length; i++) {
+        sum = sum + ((x[i] - x_avg) * (y[i] - y_avg));
+    }
+
+    return sum; 
 }
 
 int main () {
@@ -46,7 +67,14 @@ int main () {
 
         double x_average = avg(x_list, N);
         double y_average = avg(y_list, N);
-        printf("%f %f\n", x_average, y_average);
+        double x_var = var(x_list, N, x_average);
+        double y_var = var(x_list, N, y_average);
+        double conv_x_y = conv(x_list, x_average, y_list, y_average, N);
+        
+        double ro = conv_x_y/sqrt(x_var) * sqrt(y_var);
+        double beta = conv_x_y/x_var;
+        double alfa = y_average - beta * x_average;
+        printf("%f %f %f\n", alfa, beta, ro);
     }
 
     fclose(fp);

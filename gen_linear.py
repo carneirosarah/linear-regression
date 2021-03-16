@@ -24,4 +24,4 @@ def main(a, b, length, error):
 
 if __name__ == "__main__":
 
-    main(2.5, 1.9, 2**16, 2**20)
+    main(2.5, 1.9, 2**16, 10)

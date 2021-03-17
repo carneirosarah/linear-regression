@@ -59,7 +59,7 @@ int main () {
             strncpy(y, buff+5, strlen(buff));
             x_list[i] = atof(x);
             y_list[i] = atof(y);
-            //printf("%li %f %f\n", i, x_list[i], y_list[i]);
+            printf("%li %f %f\n", i, x_list[i], y_list[i]);
             free(x);
             free(y);
             i = i + 1;
@@ -71,9 +71,9 @@ int main () {
         double y_var = var(x_list, N, y_average);
         double conv_x_y = conv(x_list, x_average, y_list, y_average, N);
         
-        double ro = conv_x_y/sqrt(x_var) * sqrt(y_var);
+        double ro = conv_x_y/sqrt(x_var * y_var);
         double beta = conv_x_y/x_var;
-        double alfa = y_average - beta * x_average;
+        double alfa = y_average - (beta * x_average);
         printf("%f %f %f\n", alfa, beta, ro);
     }
 
